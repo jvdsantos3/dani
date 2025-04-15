@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parabéns Daniel Vaz</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #4a97b1;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    .cpf {
+      font-size: 1.5em;
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Parabéns Daniel Vaz</h1>
+    <strong class="cpf">Do CPF: 038.299.243-<strong id="cpf-digitos">00</strong></st>
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <script>
+    // CPF - atualiza os dois últimos dígitos aleatoriamente
+    const cpfSpan = document.getElementById("cpf-digitos");
+    setInterval(() => {
+      const digito1 = Math.floor(Math.random() * 10);
+      const digito2 = Math.floor(Math.random() * 10);
+      cpfSpan.textContent = `${digito1}${digito2}`;
+    }, 500);
+
+    // Confetes e corações
+    const canvas = document.getElementById("confettiCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const emojis = ["🎉", "💖", "🎊", "❤️"];
+    const particles = [];
+
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        speedY: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 2,
+        size: Math.random() * 30 + 20,
+        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.font = `${p.size}px Arial`;
+        ctx.fillText(p.emoji, p.x, p.y);
+        p.y += p.speedY;
+        p.x += p.speedX;
+
+        if (p.y > canvas.height) {
+          p.y = -50;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Responsivo
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
