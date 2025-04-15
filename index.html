@@ -1,122 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parabéns Daniel Vaz</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #4a97b1;
-      color: white;
-      font-family: Arial, sans-serif;
-      overflow: hidden;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parabéns Daniel Vaz</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #4a97b1;
+        color: white;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+      }
 
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 2;
-    }
+      .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 2;
+      }
 
-    h1 {
-      font-size: 3em;
-      margin: 0;
-    }
+      h1 {
+        font-size: 3em;
+        margin: 0;
+      }
 
-    .cpf {
-      font-size: 1.5em;
-      margin-top: 20px;
-      color: #fff;
-    }
+      .cpf {
+        font-size: 1.5em;
+        margin-top: 20px;
+        color: #fff;
+      }
 
-    footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9em;
-      color: #f0f0f0;
-      z-index: 2;
-      opacity: 0.8;
-    }
+      footer {
+        position: fixed;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        font-size: 0.9em;
+        color: #f0f0f0;
+        z-index: 2;
+        opacity: 0.8;
+      }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
-  </style>
-</head>
-<body>
-  <div class="content">
-    <h1>Parabéns Daniel Vaz</h1>
-    <strong class="cpf">Do CPF: 038.299.243-<strong id="cpf-digitos">00</strong></strong>
-    <h1 style="font-size: 48; margin-top: 2rem;">Você ganhou o 👌 (C*) do Maikon!!!</h1>
-  </div>
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
 
-  <footer>By Emanuel Victor Rufino</footer>
+      .vale {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        background: #fff;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        padding: 2rem 5rem;
+        color: #4a97b1;
+      }
 
-  <canvas id="confettiCanvas"></canvas>
+      img {
+        width: 150px;
+      }
 
-  <script>
-    // CPF - atualiza os dois últimos dígitos aleatoriamente
-    const cpfSpan = document.getElementById("cpf-digitos");
-    setInterval(() => {
-      const digito1 = Math.floor(Math.random() * 10);
-      const digito2 = Math.floor(Math.random() * 10);
-      cpfSpan.textContent = `${digito1}${digito2}`;
-    }, 500);
+      .vale-content {
+        margin-top: 2rem;
+        border-top: 1px solid #4a97b1;
+        border-bottom: 1px solid #4a97b1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Parabéns Daniel Vaz</h1>
+      <strong class="cpf"
+        >Do CPF: 038.299.243-<strong>XX</strong></strong
+      >
+      <h2>Você ganhou um vale</h2>
 
-    // Confetes e corações
-    const canvas = document.getElementById("confettiCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+      <div class="vale">
+        <img src="./photo.jpeg" alt="">
 
-    const emojis = ["🎉", "💖", "🎊", "❤️"];
-    const particles = [];
+        <div>
+          <h1>Gift Voucher</h1>
 
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        speedY: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 2,
-        size: Math.random() * 30 + 20,
-        emoji: emojis[Math.floor(Math.random() * emojis.length)],
-      });
-    }
+          <div class="vale-content">
+            <h2>👌(C*) do Maikon</h2>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        ctx.font = `${p.size}px Arial`;
-        ctx.fillText(p.emoji, p.x, p.y);
-        p.y += p.speedY;
-        p.x += p.speedX;
+    <footer>By Emanuel Victor Rufino</footer>
 
-        if (p.y > canvas.height) {
-          p.y = -50;
-          p.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(animate);
-    }
+    <canvas id="confettiCanvas"></canvas>
 
-    animate();
-
-    // Responsivo
-    window.addEventListener("resize", () => {
+    <script>
+      // Confetes e corações
+      const canvas = document.getElementById("confettiCanvas");
+      const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-    });
-  </script>
-</body>
+
+      const emojis = ["🎉", "💖", "🎊", "❤️"];
+      const particles = [];
+
+      for (let i = 0; i < 100; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          speedY: Math.random() * 2 + 1,
+          speedX: (Math.random() - 0.5) * 2,
+          size: Math.random() * 30 + 20,
+          emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          ctx.font = `${p.size}px Arial`;
+          ctx.fillText(p.emoji, p.x, p.y);
+          p.y += p.speedY;
+          p.x += p.speedX;
+
+          if (p.y > canvas.height) {
+            p.y = -50;
+            p.x = Math.random() * canvas.width;
+          }
+        });
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+
+      // Responsivo
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    </script>
+  </body>
 </html>
